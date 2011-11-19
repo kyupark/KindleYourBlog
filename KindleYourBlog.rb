@@ -3,8 +3,6 @@ require 'readability'
 require 'open-uri'
 require 'simple-rss'
 
-rss_url = 'http://www.instapaper.com/rss/497567/21ZkhzGjxw4LlB0gntEMr0R5E'
-
 def metadata
   return "<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">
     	<dc:title>Kindle User's Guide</dc:title>
@@ -31,38 +29,64 @@ def spine(filenames)
   return string
 end
 
-rss = SimpleRSS.parse open(rss_url)
-title = rss.channel.title # => "Slashdot"
-link = rss.channel.link # => "http://slashdot.org/"
-articles = rss.items.reverse
-
-puts "# of articles: " + articles.size.to_s
-
-Dir.mkdir "Archive" unless File.directory?("Archive")
-Dir.chdir "Archive"
-Dir.mkdir title unless File.directory?(title)
-Dir.chdir title
-date = Time.now.utc.strftime("%Y-%m-%d")
-Dir.mkdir date unless File.directory?(date)
-Dir.chdir date
-time = Time.now.utc.strftime("%H%M%S")
-Dir.mkdir time unless File.directory?(time)
-Dir.chdir time
-
-filenames = []
-readables = []
-
-articles.each_with_index do |article, num|
-  url = article.link
-  source = open(url).read
-  filenames.push "%04d-" % (num+1) + article.title + ".html"
-  readables.push "<body><h1>" +  article.title + "</h1>" + Readability::Document.new(source).content + "</body>"
-  aHTML = File.new(filenames.last, "w+:utf-8")
-  aHTML.puts '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'
-  aHTML.puts readables.last
-  aHTML.close
-  puts filenames.last
+class Blog
+  attr_accessor :rss, :title, :link, :articles
+  
+  def initialize
+    @filenames = []
+    @readables = []
+  end
+  
+  def parse_rss(rss_url)
+    @rss = SimpleRSS.parse open(rss_url)
+    @title = @rss.channel.title
+    @link = @rss.channel.link
+    @articles = @rss.items.reverse
+  end
+  
+  def make_and_move_into_folder()
+    Dir.mkdir "Archive" unless File.directory?("Archive")
+    Dir.chdir "Archive"
+    Dir.mkdir title unless File.directory?(title)
+    Dir.chdir title
+    date = Time.now.utc.strftime("%Y-%m-%d")
+    Dir.mkdir date unless File.directory?(date)
+    Dir.chdir date
+    time = Time.now.utc.strftime("%H%M%S")
+    Dir.mkdir time unless File.directory?(time)
+    Dir.chdir time
+  end
+  
+  def readablize
+    @articles.each_with_index do |article, num|
+      @url = article.link
+      @source = open(@url).read
+      puts @article.time
+      filename = "%04d-" % (num+1) + article.title + ".html"
+      @filenames.push(filename)
+      @readables.push "<body><h1>" +  article.title + "</h1>" + Readability::Document.new(@source).content + "</body>"
+      aHTML = File.new(filename, "w+:utf-8")
+      aHTML.puts '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'
+      aHTML.puts @readables.last
+      aHTML.close
+      #puts @filenames.last
+    end
+  end
 end
+
+
+
+rss_url = 'http://blog.kyu.co/rss'
+
+blog = Blog.new
+
+blog.parse_rss(rss_url)
+
+puts "# of articles: " + blog.articles.size.to_s
+
+blog.make_and_move_into_folder
+blog.readablize
+
 
 opf_filename = title + ".opf"
 bookdata = File.new(opf_filename, "w+:utf-8")
