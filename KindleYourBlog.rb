@@ -11,7 +11,7 @@ def metadata(title, date)
     	<dc:language>en-us</dc:language>
     	<meta name=\"cover\" content=\"My_Cover\" />
   	<dc:identifier id=\"BookId\" opf:scheme=\"ISBN\"></dc:identifier>
-  	<dc:creator>Park@Kyu.co</dc:creator>
+  	<dc:creator>Kyu.co</dc:creator>
   	<dc:publisher></dc:publisher>
   	<dc:subject>Reference</dc:subject>
   	<dc:date>" + date + "</dc:date>
