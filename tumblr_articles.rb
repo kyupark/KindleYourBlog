@@ -27,6 +27,10 @@ class Tumblr
     @posts[num]
   end
   
+  def to_s
+    "http://" + @tumblelog[0]['name'] + ".tumblr.com"
+  end
+  
   def get_full_list(url)
     uri = url + "/api/read?num=50"
     @xml = Nokogiri::XML(open(uri), nil, 'UTF-8')
@@ -43,7 +47,3 @@ class Tumblr
     @body = Nokogiri::HTML(posts, nil, 'UTF-8')
   end  
 end
-
-url = "http://thejoysofbeingjoy.tumblr.com"
-tumblr = Tumblr.new(url)
-puts tumblr.articles(156)['date']
