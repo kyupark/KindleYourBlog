@@ -2,9 +2,9 @@ require 'rubygems'
 require 'readability'
 require 'open-uri'
 require 'simple-rss'
-require './tumblr_articles.rb'
+require 'tumblr_articles'
 
-url = 'http://thoughtbot.tumblr.com'
+url = 'http://thejoysofbeingjoy.tumblr.com'
 
 def metadata(title, date)
   string = "<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">
@@ -37,7 +37,7 @@ end
 tumblr = Tumblr.new(url)
 title = tumblr.title
 link = tumblr
-total = tumblr.total
+total = tumblr.articles.size
 
 puts "# of articles: " + total.to_s
 
@@ -55,10 +55,11 @@ Dir.chdir time
 filenames = []
 contents = []
 
-tumblr.total.times do |num|
-  article = tumblr.articles(num)
-  filenames.push article['id'] + ".html"
-  contents.push "<body>" + tumblr.contents(num) + "</body>"
+total.times do |num|
+  article = tumblr.articles[num]
+  date = article.date
+  filenames.push article.id + ".html"
+  contents.push "<body><h1>" + article.title + "</h1><br/><small>" + date + "</small><br/>" + article.content + "</body>"
   aHTML = File.new(filenames.last, "w+:utf-8")
   aHTML.puts "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
   aHTML.puts contents.last
