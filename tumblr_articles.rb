@@ -48,6 +48,9 @@ class Tumblr
         "<img src = \"" + elem.content + "\" />"
         elem.remove
       end
+      @article.css("tag").each do |elem|
+        elem.remove
+      end
       @article
     end
   end

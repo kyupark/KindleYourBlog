@@ -3,7 +3,7 @@ require 'open-uri'
 require 'simple-rss'
 require 'tumblr_articles'
 
-url = 'http://thejoysofbeingjoy.tumblr.com'
+url = 'http://thoughtbot.tumblr.com'
 
 def metadata(title, date)
   string = "<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">
