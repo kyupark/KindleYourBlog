@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'readability'
 require 'open-uri'
 require 'simple-rss'
 require 'tumblr_articles'

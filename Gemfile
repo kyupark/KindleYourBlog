@@ -6,5 +6,3 @@ source :gemcutter
 source "http://gemcutter.org"
 
 gem "nokogiri"
-gem "simple-rss"
-gem "ruby-readability", :require => 'readability'
