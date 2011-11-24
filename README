@@ -1,8 +1,7 @@
-Convert your blog into a kindle ebook.
+Convert your tumblr blog into a kindle ebook.
 
-The number of accessible articles currently depends on the number of article in RSS.
-
-Caution: There are lots of bugs. Only few types of blogs and articles will work.
+Now supports only tumblr.
+Can load full entries.
 
 
 kindlegen that generates mobi file is made by Amazon.
