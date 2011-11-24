@@ -27,20 +27,27 @@ class Tumblr
     @posts[num]
   end
   
+  def contents(num)
+    @posts[num].css("photo-url").each do |elem|
+      elem.remove
+    end
+    @posts[num]
+  end
+      
   def to_s
     "http://" + @tumblelog[0]['name'] + ".tumblr.com"
   end
   
   def get_full_list(url)
     uri = url + "/api/read?num=50"
-    @xml = Nokogiri::XML(open(uri), nil, 'UTF-8')
+    @xml = Nokogiri::HTML(open(uri), nil, 'UTF-8')
     posts = @xml.xpath("//posts").to_s
     @total = @xml.xpath("//posts")[0]['total'].to_i
     pages = @total.to_i/50
     num = 50
     pages.times do
       uri = url + "/api/read?num=50&start=" + num.to_s
-      temp = Nokogiri::XML(open(uri), nil, 'UTF-8').xpath("//posts").to_s
+      temp = Nokogiri::HTML(open(uri), nil, 'UTF-8').xpath("//posts").to_s
       posts = posts + temp
       num += 50
     end
