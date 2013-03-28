@@ -6,5 +6,3 @@ source :gemcutter
 source "http://gemcutter.org"
 
 gem "nokogiri"
-gem "open-uri"
-gem "simple-rss"
