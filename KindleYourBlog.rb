@@ -2,24 +2,24 @@ require 'rubygems'
 require 'open-uri'
 require 'tumblr_articles'
 
-url = 'http://thoughtbot.tumblr.com'
+url = 'http://hai.kyu.co'
 
 def metadata(title, date)
   string = "<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">
-    	<dc:title>" + title + "</dc:title>
+    	<dc:title>#{title}</dc:title>
     	<dc:language>en-us</dc:language>
     	<meta name=\"cover\" content=\"My_Cover\" />
   	<dc:identifier id=\"BookId\" opf:scheme=\"ISBN\"></dc:identifier>
   	<dc:creator>Kyu.co</dc:creator>
   	<dc:publisher></dc:publisher>
   	<dc:subject>Reference</dc:subject>
-  	<dc:date>" + date + "</dc:date>
+  	<dc:date>#{date}</dc:date>
   </metadata>"
   return string
 end
 
 def item(name, loc)
-  string = "<item id=\"" + name + "\" media-type=\"application/xhtml+xml\" href=\"" + loc + "\"></item>"
+  string = "<item id=\"#{name}"\" media-type=\"application/xhtml+xml\" href=\"#{loc}\"></item>"
   return string
 end
 
