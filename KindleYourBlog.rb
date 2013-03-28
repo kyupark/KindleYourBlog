@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'open-uri'
-require 'simple-rss'
 require 'tumblr_articles'
 
 url = 'http://thoughtbot.tumblr.com'
