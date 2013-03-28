@@ -19,7 +19,7 @@ def metadata(title, date)
 end
 
 def item(name, loc)
-  string = "<item id=\"#{name}"\" media-type=\"application/xhtml+xml\" href=\"#{loc}\"></item>"
+  string = "<item id=\"#{name}\" media-type=\"application/xhtml+xml\" href=\"#{loc}\"></item>"
   return string
 end
 
